@@ -1,14 +1,18 @@
 import React from "react";
 import { useState } from "react";
 
-const AddNewTodo = ({ addTodo }) => {
-    const [todos, setTodos] = useState('');
+const AddNewTodo = ({ todosDispatch }) => {
+    const [todo, setTodo] = useState('');
+
+    const handleChange = (e) => {
+        setTodo(e.target.value)
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault(); // to prevent default action
-        console.log(todos)
-        addTodo(todos);
-        setTodos('');
+        console.log(todo)
+        todosDispatch({type:'ADD_TODO', text: todo});
+        setTodo('');
     }
     return (
         <form onSubmit={handleSubmit}>
@@ -16,10 +20,8 @@ const AddNewTodo = ({ addTodo }) => {
             <input
                 type='text'
                 id='todo'
-                value={todos}
-                onChange={
-                    (e) => setTodos(e.target.value)
-                }
+                value={todo}
+                onChange={handleChange}
             />
             <input
                 // className="ui button primary"
